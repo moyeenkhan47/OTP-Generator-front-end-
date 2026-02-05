@@ -64,15 +64,20 @@
       viewBox="0 0 120 120"
     >
       <!-- Background circle -->
-      <circle
-        cx="60"
-        cy="60"
-        r="50"
-        stroke="currentColor"
-        stroke-width="6"
-        fill="transparent"
-        class="text-slate-800"
-      />
+    <circle
+  cx="60"
+  cy="60"
+  r="50"
+  stroke-width="6"
+  fill="transparent"
+  stroke-linecap="round"
+  class="transition-all duration-1000 ease-linear"
+  [attr.stroke]="getCountdownColor(timeLeft)"
+  [style.stroke-dasharray]="314"
+  [style.stroke-dashoffset]="314 - (314 * timeLeft) / 30"
+  [style.filter]="'drop-shadow(0 0 10px ' + getCountdownColor(timeLeft) + ')'"
+/>
+
 
       <!-- Progress circle -->
       <circle

@@ -89,6 +89,18 @@ this.eventSource.addEventListener('otp', (event: any) => {
     this.otp = '----';
     this.cleanup();
   }
+getCountdownColor(timeLeft: number): string {
+  const total = 30;
+  const ratio = timeLeft / total;
+
+  if (ratio > 0.6) {
+    return '#22c55e'; // green
+  } else if (ratio > 0.3) {
+    return '#eab308'; // yellow
+  } else {
+    return '#ef4444'; // red
+  }
+}
 
   private resetState(): void {
     this.cleanup();
