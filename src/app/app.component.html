@@ -1,113 +1,108 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 px-3 sm:px-4 font-sans">
-
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 px-3 sm:px-4 font-sans selection:bg-indigo-500/30">
+  
   <div class="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20
               rounded-[1.5rem] sm:rounded-[2rem]
-              shadow-2xl p-4 sm:p-6 relative overflow-hidden">
-
-    <!-- Background glow -->
-    <div class="absolute -top-24 -right-24 w-40 sm:w-48 h-40 sm:h-48 bg-indigo-500/20 rounded-full blur-3xl"></div>
+              shadow-2xl p-4 sm:p-6
+              relative overflow-hidden group">
+    
+    <div class="absolute -top-24 -right-24 w-40 sm:w-48 h-40 sm:h-48 bg-indigo-500/20 rounded-full blur-3xl group-hover:bg-indigo-500/30 transition-all duration-700"></div>
     <div class="absolute -bottom-24 -left-24 w-40 sm:w-48 h-40 sm:h-48 bg-purple-500/10 rounded-full blur-3xl"></div>
 
-    <!-- Header -->
     <div class="relative z-10 text-center mb-4 sm:mb-8">
-      <h2 class="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+      <h2 class="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 tracking-tight">
         OTP Verification
       </h2>
-      <p class="text-slate-400 text-xs sm:text-sm mt-1">
-        Secure authentication
-      </p>
+      <p class="text-slate-400 text-xs sm:text-sm mt-1">Secure authentication</p>
     </div>
 
-    <!-- OTP Length -->
     <div class="relative z-10 mb-4 sm:mb-8">
-      <label class="block text-[10px] sm:text-xs font-semibold text-indigo-300 uppercase mb-2 ml-1">
+      <label class="block text-[10px] sm:text-xs font-semibold text-indigo-300 uppercase tracking-wider mb-2 ml-1">
         OTP Length
       </label>
 
       <select
         [(ngModel)]="selectedLength"
         [disabled]="otpGenerated"
-        class="w-full bg-slate-800/50 border border-slate-700 text-white
-               rounded-xl px-4 py-2.5 sm:py-3 text-sm
-               focus:ring-2 focus:ring-indigo-500 outline-none
-               disabled:opacity-50">
-        <option [ngValue]="3">3 Digits</option>
-        <option [ngValue]="4">4 Digits</option>
-        <option [ngValue]="5">5 Digits</option>
-        <option [ngValue]="6">6 Digits</option>
+        class="w-full appearance-none bg-slate-800/50 border border-slate-700 text-white
+               rounded-xl px-4 py-2.5 sm:py-3
+               focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500
+               outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+      >
+        <option [ngValue]="3" class="bg-slate-900">3 Digits (Standard)</option>
+        <option [ngValue]="4" class="bg-slate-900">4 Digits (Secure)</option>
+        <option [ngValue]="5" class="bg-slate-900">5 Digits (High)</option>
+        <option [ngValue]="6" class="bg-slate-900">6 Digits (Maximum)</option>
       </select>
     </div>
 
-    <!-- OTP Display -->
     <div class="relative z-10 text-center py-3 sm:py-4 bg-white/5 rounded-2xl border border-white/5 mb-4 sm:mb-8">
       <h1 *ngIf="!loading"
-          class="text-3xl sm:text-5xl font-mono font-bold tracking-[0.5em] sm:tracking-[0.7em] text-white ml-3">
+          class="text-3xl sm:text-5xl font-mono font-bold
+                 tracking-[0.5em] sm:tracking-[0.7em]
+                 text-white drop-shadow-[0_0_15px_rgba(99,102,241,0.5)] ml-3 sm:ml-4">
         {{ otp }}
       </h1>
 
-      <div *ngIf="loading" class="flex flex-col items-center gap-2">
+      <div *ngIf="loading" class="flex flex-col items-center gap-2 sm:gap-3">
         <div class="flex gap-1">
+          <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+          <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
           <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></span>
-          <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce delay-100"></span>
-          <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce delay-200"></span>
         </div>
-        <span class="text-indigo-300 text-[10px] sm:text-xs uppercase tracking-widest">
+        <span class="text-indigo-300 text-[10px] sm:text-xs font-medium uppercase tracking-widest">
           Generating
         </span>
       </div>
     </div>
 
-    <!-- Circular Timer -->
     <div *ngIf="otpGenerated && timeLeft > 0"
-         class="relative z-10 flex justify-center mb-4 sm:mb-8">
+         class="relative z-10 flex flex-col items-center justify-center mb-4 sm:mb-8">
       <div class="relative">
-        <svg class="w-20 h-20 sm:w-24 sm:h-24 -rotate-90">
-          <circle cx="50%" cy="50%" r="42%" stroke-width="4"
-                  class="text-slate-800" fill="transparent"
-                  stroke="currentColor" />
+        <svg class="w-20 h-20 sm:w-24 sm:h-24 transform -rotate-90">
+          <circle cx="48" cy="48" r="42" stroke="currentColor" stroke-width="4" fill="transparent" class="text-slate-800" />
           <circle
-            cx="50%" cy="50%" r="42%"
-            stroke-width="4" fill="transparent"
+            cx="48" cy="48" r="42"
+            stroke="currentColor" stroke-width="4" fill="transparent"
             stroke-linecap="round"
-            class="text-indigo-500 transition-all duration-1000"
+            class="text-indigo-500 transition-all duration-1000 ease-linear"
             [style.stroke-dasharray]="263.8"
             [style.stroke-dashoffset]="263.8 - (263.8 * timeLeft) / 30"
+            style="filter: drop-shadow(0 0 6px rgba(99,102,241,0.6));"
           />
         </svg>
 
         <div class="absolute inset-0 flex flex-col items-center justify-center">
-          <span class="text-lg sm:text-xl font-bold text-white">
-            {{ timeLeft }}
-          </span>
-          <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase">
-            Sec
-          </span>
+          <span class="text-lg sm:text-xl font-bold text-white">{{ timeLeft }}</span>
+          <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Sec</span>
         </div>
       </div>
     </div>
 
-    <!-- Button -->
     <button
       (click)="generateOtp()"
       [disabled]="loading || otpGenerated"
       class="relative z-10 w-full bg-indigo-600 hover:bg-indigo-500
-             text-white py-3 sm:py-4 rounded-xl
-             font-bold text-xs sm:text-sm uppercase tracking-widest
-             disabled:bg-slate-800 disabled:text-slate-500 transition">
+             disabled:bg-slate-800 disabled:text-slate-500
+             text-white py-3 sm:py-4
+             rounded-xl font-bold text-xs sm:text-sm
+             uppercase tracking-widest shadow-[0_10px_20px_-10px_rgba(79,70,229,0.5)]
+             active:scale-[0.98] transition-all"
+    >
       {{ otpGenerated ? 'Session Active' : 'Generate OTP' }}
     </button>
 
-    <!-- Messages -->
     <div class="relative z-10 space-y-2 sm:space-y-3 mt-4 sm:mt-6">
       <div *ngIf="successMessage"
-           class="text-emerald-400 bg-emerald-500/10 px-3 sm:px-4 py-2 sm:py-3
-                  rounded-lg border border-emerald-500/20 text-xs sm:text-sm">
+           class="flex items-center gap-2 text-emerald-400 bg-emerald-500/10
+                  px-3 sm:px-4 py-2 sm:py-3
+                  rounded-lg border border-emerald-500/20 text-xs sm:text-sm animate-fade-in">
         {{ successMessage }}
       </div>
 
       <div *ngIf="error"
-           class="text-rose-400 bg-rose-500/10 px-3 sm:px-4 py-2 sm:py-3
-                  rounded-lg border border-rose-500/20 text-xs sm:text-sm">
+           class="flex items-center gap-2 text-rose-400 bg-rose-500/10
+                  px-3 sm:px-4 py-2 sm:py-3
+                  rounded-lg border border-rose-500/20 text-xs sm:text-sm animate-pulse">
         {{ error }}
       </div>
     </div>
